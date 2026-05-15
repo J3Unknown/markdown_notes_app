@@ -62,6 +62,14 @@ class ThemesManager extends ChangeNotifier {
       colorScheme: ColorScheme.fromSeed(
         seedColor: ColorsManager.darkThemeBackgroundColor,
       ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.windows: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
       scaffoldBackgroundColor: ColorsManager.darkThemeBackgroundColor,
       primaryColor: _accent,
       dialogTheme: DialogThemeData(
@@ -110,6 +118,14 @@ class ThemesManager extends ChangeNotifier {
     return ThemeData(
       colorScheme: ColorScheme.fromSeed(
         seedColor: ColorsManager.lightThemeBackgroundColor,
+      ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.windows: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+        },
       ),
       dialogTheme: DialogThemeData(
         backgroundColor: ColorsManager.lightThemeBackgroundColor,

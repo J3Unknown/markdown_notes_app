@@ -1,29 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-class ConstantsManager{
+class ConstantsManager {
   static double screenWidth(context) => MediaQuery.of(context).size.width;
   static double screenHeight(context) => MediaQuery.of(context).size.height;
 
   static MarkdownStyleSheet getMarkdownStyle(bool isDark) {
-    final textColor = isDark ? const Color(0xFFE0E0E0) : const Color(0xFF1A1A1A);
-    final headingColor = isDark ? const Color(0xFFF5F5F5) : const Color(0xFF111111);
-    final linkColor = isDark ? const Color(0xFF64B5F6) : const Color(0xFF1976D2);
-    final codeBackground = isDark ? const Color(0xFF2A2A2A) : const Color(0xFFEFEFEF);
-    final codeBlockBackground = isDark ? const Color(0xFF1E1E1E) : const Color(0xFFFAFAFA);
-    final blockquoteBackground = isDark ? const Color(0xFF1A1A2E) : const Color(0xFFF7F7F7);
-    final blockquoteBorderColor = isDark ? const Color(0xFF64B5F6) : Colors.grey;
+    final textColor = isDark
+        ? const Color(0xFFE0E0E0)
+        : const Color(0xFF1A1A1A);
+    final headingColor = isDark
+        ? const Color(0xFFF5F5F5)
+        : const Color(0xFF111111);
+    final linkColor = isDark
+        ? const Color(0xFF64B5F6)
+        : const Color(0xFF1976D2);
+    final codeBackground = isDark
+        ? const Color(0xFF2A2A2A)
+        : const Color(0xFFEFEFEF);
+    final codeBlockBackground = isDark
+        ? const Color(0xFF1E1E1E)
+        : const Color(0xFFFAFAFA);
+    final blockquoteBackground = isDark
+        ? const Color(0xFF1A1A2E)
+        : const Color(0xFFF7F7F7);
+    final blockquoteBorderColor = isDark
+        ? const Color(0xFF64B5F6)
+        : Colors.grey;
     final tableCellColor = isDark ? const Color(0xFF1E1E1E) : Colors.white;
     final tableBorderColor = isDark ? const Color(0xFF555555) : Colors.grey;
     final hrColor = isDark ? const Color(0xFF555555) : Colors.grey;
-    final codeTextColor = isDark ? const Color(0xFFCE9178) : const Color(0xFF333333);
+    final codeTextColor = isDark
+        ? const Color(0xFFCE9178)
+        : const Color(0xFF333333);
 
     return MarkdownStyleSheet(
       // Links
-      a: TextStyle(
-        color: linkColor,
-        decoration: TextDecoration.underline,
-      ),
+      a: TextStyle(color: linkColor, decoration: TextDecoration.underline),
 
       // Paragraphs
       p: TextStyle(fontSize: 16.0, height: 1.4, color: textColor),
@@ -38,22 +51,46 @@ class ConstantsManager{
       ),
 
       // Headings
-      h1: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold, color: headingColor),
+      h1: TextStyle(
+        fontSize: 28.0,
+        fontWeight: FontWeight.bold,
+        color: headingColor,
+      ),
       h1Padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
 
-      h2: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: headingColor),
+      h2: TextStyle(
+        fontSize: 24.0,
+        fontWeight: FontWeight.bold,
+        color: headingColor,
+      ),
       h2Padding: const EdgeInsets.only(top: 14.0, bottom: 6.0),
 
-      h3: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600, color: headingColor),
+      h3: TextStyle(
+        fontSize: 20.0,
+        fontWeight: FontWeight.w600,
+        color: headingColor,
+      ),
       h3Padding: const EdgeInsets.only(top: 12.0, bottom: 6.0),
 
-      h4: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: headingColor),
+      h4: TextStyle(
+        fontSize: 18.0,
+        fontWeight: FontWeight.w600,
+        color: headingColor,
+      ),
       h4Padding: const EdgeInsets.only(top: 10.0, bottom: 4.0),
 
-      h5: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: headingColor),
+      h5: TextStyle(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w600,
+        color: headingColor,
+      ),
       h5Padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
 
-      h6: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600, color: headingColor),
+      h6: TextStyle(
+        fontSize: 14.0,
+        fontWeight: FontWeight.w600,
+        color: headingColor,
+      ),
       h6Padding: const EdgeInsets.only(top: 6.0, bottom: 2.0),
 
       // Bold / Italic / Strikethrough
@@ -62,10 +99,16 @@ class ConstantsManager{
       del: TextStyle(decoration: TextDecoration.lineThrough, color: textColor),
 
       // Blockquote
-      blockquote: TextStyle(fontSize: 16.0, height: 1.5, color: textColor.withAlpha(200)),
+      blockquote: TextStyle(
+        fontSize: 16.0,
+        height: 1.5,
+        color: textColor.withAlpha(200),
+      ),
       blockquotePadding: const EdgeInsets.all(12.0),
       blockquoteDecoration: BoxDecoration(
-        border: Border(left: BorderSide(color: blockquoteBorderColor, width: 4.0)),
+        border: Border(
+          left: BorderSide(color: blockquoteBorderColor, width: 4.0),
+        ),
         color: blockquoteBackground,
       ),
 
@@ -98,9 +141,7 @@ class ConstantsManager{
       ),
       tableScrollbarThumbVisibility: true,
       tableCellsPadding: const EdgeInsets.all(6.0),
-      tableCellsDecoration: BoxDecoration(
-        color: tableCellColor,
-      ),
+      tableCellsDecoration: BoxDecoration(color: tableCellColor),
       tableVerticalAlignment: TableCellVerticalAlignment.middle,
 
       // Code blocks
@@ -112,9 +153,7 @@ class ConstantsManager{
 
       // Horizontal rule
       horizontalRuleDecoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(width: 1.0, color: hrColor),
-        ),
+        border: Border(bottom: BorderSide(width: 1.0, color: hrColor)),
       ),
 
       // Alignment defaults
@@ -134,5 +173,4 @@ class ConstantsManager{
       superscriptFontFeatureTag: 'sups',
     );
   }
-
 }
