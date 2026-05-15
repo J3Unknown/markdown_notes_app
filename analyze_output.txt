@@ -1,0 +1,22 @@
+﻿Analyzing package_tester...                                     
+
+warning - Unused import: 'package:shared_preferences/shared_preferences.dart' - lib\main.dart:9:8 - unused_import
+   info - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion - lib\modules\markdown\markdown_editor_screen.dart:129:38 - deprecated_member_use
+   info - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion - lib\modules\markdown\markdown_home_screen.dart:165:40 - deprecated_member_use
+   info - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion - lib\modules\markdown\settings_screen.dart:78:56 - deprecated_member_use
+   info - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion - lib\modules\markdown\settings_screen.dart:91:56 - deprecated_member_use
+   info - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion - lib\modules\markdown\settings_screen.dart:103:56 - deprecated_member_use
+   info - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion - lib\modules\markdown\settings_screen.dart:115:56 - deprecated_member_use
+   info - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion - lib\modules\markdown\settings_screen.dart:127:56 - deprecated_member_use
+   info - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion - lib\modules\markdown\settings_screen.dart:139:58 - deprecated_member_use
+warning - Unused import: 'dart:developer' - lib\shared\themes\themes_manager.dart:1:8 - unused_import
+warning - Unused import: 'package:flutter/cupertino.dart' - lib\shared\util\routes_manager.dart:1:8 - unused_import
+
+flutter : 11 issues found. (ran in 2.1s)
+At line:1 char:1
++ flutter analyze 2>&1 | Out-File -FilePath ".\analyze_output.txt" -Enc ...
++ ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (11 issues found. (ran in 2.1s): 
+   String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

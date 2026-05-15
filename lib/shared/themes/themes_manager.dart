@@ -1,40 +1,55 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:package_tester/shared/themes/colors_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemesManager extends ChangeNotifier{
+class ThemesManager extends ChangeNotifier {
   static bool _isDark = true;
   static late Color _accent;
   static bool get isDark => _isDark;
   static Color get accent => _accent;
 
-  static ThemeMode get themeMode => _isDark? ThemeMode.dark:ThemeMode.light;
+  static ThemeMode get themeMode => _isDark ? ThemeMode.dark : ThemeMode.light;
 
- Future<void> init() async{
-   SharedPreferences prefs = await SharedPreferences.getInstance();
-   int? color = prefs.getInt('Accent');
-   if(color == null){
-     _accent = getAccentColor(Accents.dark);
-   } else{
-     _accent = Color(color);
-   }
-   _isDark = prefs.getBool('isDark')??true;
-   notifyListeners();
- }
-  void toggleTheme() async{
+  Future<void> init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? color;
+    try {
+      color = prefs.getInt('Accent');
+    } catch (e) {
+      color = null;
+    }
+
+    if (color == null) {
+      _accent = getAccentColor(Accents.dark);
+    } else {
+      _accent = Color(color);
+    }
+
+    bool? isDark;
+    try {
+      isDark = prefs.getBool('isDark');
+    } catch (e) {
+      isDark = null;
+    }
+    _isDark = isDark ?? true;
+
+    notifyListeners();
+  }
+
+  void toggleTheme() async {
     _isDark = !_isDark;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('isDark', _isDark);
     if (_accent == getAccentColor(Accents.dark) ||
         _accent == getAccentColor(Accents.light)) {
-      _accent = _isDark ? getAccentColor(Accents.dark) : getAccentColor(Accents.light);
+      _accent = _isDark
+          ? getAccentColor(Accents.dark)
+          : getAccentColor(Accents.light);
     }
     notifyListeners();
   }
 
-  void setAccent(Accents accents){
+  void setAccent(Accents accents) {
     _accent = getAccentColor(accents);
     notifyListeners();
   }
@@ -42,10 +57,11 @@ class ThemesManager extends ChangeNotifier{
   static ThemeData get darkTheme => _darkTheme();
   static ThemeData get lightTheme => _lightTheme();
 
-
-  static ThemeData _darkTheme(){
+  static ThemeData _darkTheme() {
     return ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: ColorsManager.darkThemeBackgroundColor),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: ColorsManager.darkThemeBackgroundColor,
+      ),
       scaffoldBackgroundColor: ColorsManager.darkThemeBackgroundColor,
       primaryColor: _accent,
       dialogTheme: DialogThemeData(
@@ -62,15 +78,13 @@ class ThemesManager extends ChangeNotifier{
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
-          side: BorderSide(color: _accent.withAlpha(20))
+          side: BorderSide(color: _accent.withAlpha(20)),
         ),
         backgroundColor: ColorsManager.darkThemePrimaryColor,
-        foregroundColor: _accent
+        foregroundColor: _accent,
       ),
       iconButtonTheme: IconButtonThemeData(
-        style: IconButton.styleFrom(
-          foregroundColor: _accent,
-        )
+        style: IconButton.styleFrom(foregroundColor: _accent),
       ),
       textTheme: TextTheme(
         displayLarge: TextStyle(color: ColorsManager.white),
@@ -92,17 +106,17 @@ class ThemesManager extends ChangeNotifier{
     );
   }
 
-  static ThemeData _lightTheme(){
+  static ThemeData _lightTheme() {
     return ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: ColorsManager.lightThemeBackgroundColor),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: ColorsManager.lightThemeBackgroundColor,
+      ),
       dialogTheme: DialogThemeData(
         backgroundColor: ColorsManager.lightThemeBackgroundColor,
       ),
       primaryColor: _accent,
       iconButtonTheme: IconButtonThemeData(
-          style: IconButton.styleFrom(
-            foregroundColor: _accent,
-          )
+        style: IconButton.styleFrom(foregroundColor: _accent),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: ColorsManager.lightThemePrimaryColor,
@@ -110,7 +124,7 @@ class ThemesManager extends ChangeNotifier{
         foregroundColor: _accent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
-          side: BorderSide(color: _accent.withAlpha(20))
+          side: BorderSide(color: _accent.withAlpha(20)),
         ),
       ),
       appBarTheme: AppBarTheme(
@@ -140,8 +154,7 @@ class ThemesManager extends ChangeNotifier{
         titleMedium: TextStyle(color: ColorsManager.black),
         titleSmall: TextStyle(color: ColorsManager.black),
       ),
-      scaffoldBackgroundColor: ColorsManager.lightThemeBackgroundColor
+      scaffoldBackgroundColor: ColorsManager.lightThemeBackgroundColor,
     );
   }
 }
-

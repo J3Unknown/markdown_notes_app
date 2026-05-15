@@ -32,7 +32,7 @@ class _MarkdownFullPreviewScreenState extends State<MarkdownFullPreviewScreen> {
               child: Markdown(
                 data: widget.note.content,
                 selectable: true,
-                styleSheet: ConstantsManager.markdownStyle,
+                styleSheet: ConstantsManager.getMarkdownStyle(ThemesManager.isDark),
                 onTapLink: (text, link, title) async {
                   if (link != null) {
                     if (await canLaunchUrl(Uri.parse(link))) {

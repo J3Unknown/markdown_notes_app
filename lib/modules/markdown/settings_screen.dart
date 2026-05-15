@@ -147,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           setState(() {
                             color = getAccentColor(Accents.red);
                             themesManager.setAccent(Accents.red);
-                            prefs.setString('Accent', color.colorSpace.toString());
+                            prefs.setInt('Accent', color.value);
                           });
                         },
                       )

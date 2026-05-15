@@ -1,16 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_tester/core/bloc/main_bloc.dart';
 import 'package:package_tester/models/markdown_note/note_data_model.dart';
 import 'package:package_tester/shared/themes/colors_manager.dart';
 import 'package:package_tester/shared/themes/themes_manager.dart';
+import 'package:package_tester/shared/util/components.dart';
 import 'package:package_tester/shared/util/icons_manager.dart';
 import 'package:package_tester/shared/util/routes_manager.dart';
 
 import '../../shared/repo/notes_repo.dart';
-import 'markdown_preview.dart';
 
 class MarkdownHomeScreen extends StatefulWidget {
   const MarkdownHomeScreen({super.key});
@@ -115,12 +119,64 @@ class _MarkdownHomeScreenState extends State<MarkdownHomeScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          GoRouter.of(context).push(RoutesManager.editor);
-        },
-        child: Icon(IconsManager.addIcon),
+      floatingActionButton: SpeedDial(
+        icon: IconsManager.addIcon,
+        activeIcon: Icons.close,
+        spacing: 8,
+        children: [
+          SpeedDialChild(
+            child: Icon(IconsManager.addIcon),
+            label: 'New Note',
+            foregroundColor: ColorsManager.black,
+            labelStyle: TextStyle(color: ColorsManager.black),
+            onTap: () {
+              GoRouter.of(context).push(RoutesManager.editor);
+            },
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.file_open_outlined),
+            label: 'Import .md',
+            foregroundColor: ColorsManager.black,
+            labelStyle: TextStyle(color: ColorsManager.black),
+            onTap: () => _importMarkdownFile(),
+          ),
+        ],
       ),
     );
+  }
+
+  Future<void> _importMarkdownFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['md'],
+    );
+
+    if (result != null && result.files.single.path != null) {
+      final file = File(result.files.single.path!);
+      final content = await file.readAsString();
+
+      final int newId = getNextId();
+      final note = NoteDataModel(
+        id: newId,
+        title: '',
+        content: content,
+        createdAt: DateTime.now().toString(),
+        updatedAt: DateTime.now().toString(),
+        colorHex: ThemesManager.accent.value.toRadixString(16).replaceAll('0xff', ''),
+      );
+
+      await boxes.put('key_$newId', note);
+      cubit.addNote(note);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Markdown file imported successfully'),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+        );
+      }
+    }
   }
 }

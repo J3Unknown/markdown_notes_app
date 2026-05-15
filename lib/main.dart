@@ -6,18 +6,36 @@ import 'package:package_tester/shared/repo/notes_repo.dart';
 import 'package:package_tester/shared/themes/themes_manager.dart';
 import 'package:package_tester/shared/util/routes_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/bloc/main_bloc.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  Hive.registerAdapter(NoteDataModelAdapter());
-  boxes = await Hive.openBox<NoteDataModel>('notes');
-  ThemesManager theme = ThemesManager();
-  await theme.init();
-  runApp(MyApp(themesManager: theme,));
+  try {
+    await Hive.initFlutter();
+    Hive.registerAdapter(NoteDataModelAdapter());
+    boxes = await Hive.openBox<NoteDataModel>('notes');
+    ThemesManager theme = ThemesManager();
+    await theme.init();
+    runApp(MyApp(themesManager: theme));
+  } catch (e, stackTrace) {
+    runApp(MaterialApp(
+      home: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Initialization Error:\n$e\n\n$stackTrace',
+                style: const TextStyle(color: Colors.red, fontSize: 14),
+                textDirection: TextDirection.ltr,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+  }
 }
 
 class MyApp extends StatelessWidget {
